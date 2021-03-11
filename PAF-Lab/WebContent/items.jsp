@@ -1,12 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
  pageEncoding="ISO-8859-1"%>
+ <%@ page import="com.Item"%>
 <%
 if (request.getParameter("itemCode") != null)
 {
- session.setAttribute("itemCode", request.getParameter("itemCode"));
- session.setAttribute("itemName", request.getParameter("itemName"));
- session.setAttribute("itemPrice", request.getParameter("itemPrice"));
- session.setAttribute("itemDesc", request.getParameter("itemDesc"));
+Item itemObj = new Item();
+String stsMsg = itemObj.insertItem(request.getParameter("itemCode"),
+request.getParameter("itemName"),
+request.getParameter("itemPrice"),
+request.getParameter("itemDesc"));
+session.setAttribute("statusMsg", stsMsg);
+//Item itemObj = new Item();
+//itemObj.connect();//For testing the connect method
+session.setAttribute("itemCode", request.getParameter("itemCode"));
+session.setAttribute("itemName", request.getParameter("itemName"));
+session.setAttribute("itemPrice", request.getParameter("itemPrice"));
+session.setAttribute("itemDesc", request.getParameter("itemDesc"));
 }
 
 %>
@@ -41,6 +50,7 @@ if (request.getParameter("itemCode") != null)
  <td><%out.print(session.getAttribute("itemName")); %></td>
  <td><%out.print(session.getAttribute("itemPrice")); %></td>
  <td><%out.print(session.getAttribute("itemDesc")); %></td>
+ 
  <td><input name="btnUpdate" type="button" value="Update"></td>
  <td><input name="btnRemove" type="button" value="Remove"></td>
  </tr>
